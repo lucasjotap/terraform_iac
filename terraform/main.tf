@@ -70,7 +70,7 @@ resource "kubernetes_deployment" "go_app_deployment" {
           image = docker_image.go_data_app.name
           name  = "go-data-app-container"
 
-          ports {
+          port {
             container_port = 8080
           }
 
