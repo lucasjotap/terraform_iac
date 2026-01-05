@@ -2,7 +2,7 @@ terraform {
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
-      version = "~> 3.0.2"
+      version = "~> 3.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -12,12 +12,10 @@ terraform {
 }
 
 provider "kubernetes" {
-  # This will use the default kubeconfig path (~/.kube/config)
-  # Ensure your kubectl is configured to point to minikube
+  config_path = "~/.kube/config"
 }
 
 provider "docker" {
-  # This will use the local docker daemon
 }
 
 # Build the Docker image for our Go application
@@ -68,6 +66,7 @@ resource "kubernetes_deployment" "go_app_deployment" {
       spec {
         container {
           image = docker_image.go_data_app.name
+          image_pull_policy = "IfNotPresent"
           name  = "go-data-app-container"
 
           port {

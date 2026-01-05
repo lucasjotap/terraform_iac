@@ -1,17 +1,19 @@
 # Stage 1: Build the Go application
-FROM golang:1.22-alpine AS builder
+FROM golang:1.25-alpine AS builder
 
 WORKDIR /app
 
-# Copy go.mod and go.sum files to download dependencies
+# Copy go.mod and go.sum files
 COPY go.mod go.sum ./
-RUN go mod download
+
+# Copy the vendored dependencies
+COPY vendor ./vendor
 
 # Copy the rest of the application source code
 COPY . .
 
-# Build the application. CGO_ENABLED=0 is important for a static binary.
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o /app/server .
+# Build the application using the vendored modules.
+RUN CGO_ENABLED=0 GOOS=linux go build -mod=vendor -a -installsuffix cgo -o /app/server . 2>&1
 
 # Stage 2: Create the final, minimal image
 FROM alpine:latest
