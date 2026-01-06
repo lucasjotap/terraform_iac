@@ -1,5 +1,5 @@
 # Terraform Go Data App on Minikube
-![Uploading image.png…]()
+<img width="310" height="163" alt="image" src="https://github.com/user-attachments/assets/8f73cd6f-bab6-4321-acb0-953d6ac24fb9" />
 
 This project demonstrates a simple data-engineering-style application built with Go, containerized with Docker, and deployed to a local Minikube Kubernetes cluster using Terraform.
 
