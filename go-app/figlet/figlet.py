@@ -10,17 +10,17 @@ class FigletDisplay:
 		self.font = Figlet(font=font)
 		self.fav_kernel = os.sys.platform
 
-	def display_figlet(self):
+	def display_figlet(self) -> None:
 		try:
 			print("What's your favorite kernel?")
 			print(self.font.renderText(self.fav_kernel))
 		except Exception as e:
 			print(e)
-			return 0
-		return 0
+			return None
+		return None
 
 
 if __name__ == "__main__":
-	
 	fd = FigletDisplay("slant")
 	fd.display_figlet()
+
